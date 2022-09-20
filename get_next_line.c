@@ -6,7 +6,7 @@
 /*   By: puttasa <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 20:00:04 by puttasa           #+#    #+#             */
-/*   Updated: 2022/09/20 15:05:27 by puttasa          ###   ########.fr       */
+/*   Updated: 2022/09/20 15:20:02 by puttasa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ char	*get_next_line(int fd)
 		free(buf);
 		return (0);
 	}
-
-
+	line = ft_getline(tmp);
+	buf = ft_extraline(tmp);
 	return (line);
 }
 
@@ -76,3 +76,19 @@ char	*ft_getline(char *buf)
 }
 
 char	*ft_extraline(char *buf)
+{
+	char	*tmp;
+	size_t	len;
+
+	len = ft_strlen_mod(buf, '\n');
+	if (!buf)
+	{
+		free(buf);
+		return (0);
+	}
+	if (buf[len] == '\n')
+		len++;
+	tmp = ft_substr(str, len, ft_strlen_mod(&buf[len], '\n'));
+	free(buf);
+	return (tmp);
+}
