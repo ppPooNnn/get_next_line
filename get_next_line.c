@@ -6,7 +6,7 @@
 /*   By: puttasa <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 20:00:04 by puttasa           #+#    #+#             */
-/*   Updated: 2022/09/20 21:45:42 by puttasa          ###   ########.fr       */
+/*   Updated: 2022/09/20 22:50:25 by puttasa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char	*get_next_line(int fd)
 	buf = ft_extraline(buf);
 	return (line);
 }
+
+//buffer should call seperate with read line
 
 char	*ft_readfile(char *buf, int fd)
 {
