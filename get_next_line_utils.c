@@ -6,7 +6,7 @@
 /*   By: puttasa <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 20:01:17 by puttasa           #+#    #+#             */
-/*   Updated: 2022/09/20 15:08:11 by puttasa          ###   ########.fr       */
+/*   Updated: 2022/09/20 15:47:14 by puttasa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t	ft_strlen_mod(const char *str, char c)
 	return (len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		sumsize;
 	int		count;
@@ -36,7 +36,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	if (!s1 || !s2)
 		return (0);
-	sumsize = ft_strlen(s1, '\0') + ft_strlen(s2, '\0');
+	sumsize = ft_strlen_mod(s1, '\0') + ft_strlen_mod(s2, '\0');
 	str = malloc(sumsize + 1);
 	if (!str)
 	{
@@ -63,19 +63,45 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!s)
 		return (0);
 	relen = len;
-	if (start > ft_strlen(s))
+	if (start > ft_strlen_mod(s, '\0'))
 		relen = 0;
-	else if (ft_strlen(s) - start < len)
-		relen = ft_strlen(s) - start;
+	else if (ft_strlen_mod(s, '\0') - start < len)
+		relen = ft_strlen_mod(s, '\0') - start;
 	substr = malloc(relen + 1);
 	if (!substr)
 		return (0);
 	ft_bzero (substr, relen + 1);
-	while (s[start] != '\0' && start < ft_strlen(s) && i < relen)
+	while (s[start] != '\0' && start < ft_strlen_mod(s, '\0') && i < relen)
 	{
 		substr[i] = s[start];
 		i++;
 		start++;
 	}
 	return (substr);
+}
+
+char	*ft_strrchr(const char *s, int c)
+{
+	int	len;
+
+	len = ft_strlen_mod(s, '\0');
+	while (len >= 0)
+	{
+		if (s[len] == (char)c)
+			return ((char *)s + len);
+		len--;
+	}
+	return (0);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	count;
+
+	count = 0;
+	while (count < n)
+	{
+		*(char *)(s + count) = '\0';
+		count++;
+	}
 }
