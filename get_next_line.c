@@ -6,7 +6,7 @@
 /*   By: puttasa <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 20:00:04 by puttasa           #+#    #+#             */
-/*   Updated: 2022/09/20 15:46:36 by puttasa          ###   ########.fr       */
+/*   Updated: 2022/09/20 21:45:42 by puttasa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_readfile(char *buf, int fd)
 	char	*tmp;
 	int		checkread;
 
-	tmp = malloc(BUFFER_SIZE + 1);
+	tmp = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!tmp)
 		return (0);
 	checkread = 1;
@@ -67,7 +67,7 @@ char	*ft_getline(char *buf)
 	size_t	len;
 
 	len = ft_strlen_mod(buf, '\n');
-	if (!buf)
+	if (!buf[0])
 		return (0);
 	if (buf[len] == '\n')
 		len++;
@@ -81,7 +81,7 @@ char	*ft_extraline(char *buf)
 	size_t	len;
 
 	len = ft_strlen_mod(buf, '\n');
-	if (!buf)
+	if (!buf[len])
 	{
 		free(buf);
 		return (0);

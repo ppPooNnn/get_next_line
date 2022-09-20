@@ -6,18 +6,20 @@
 /*   By: puttasa <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 20:01:17 by puttasa           #+#    #+#             */
-/*   Updated: 2022/09/20 15:47:14 by puttasa          ###   ########.fr       */
+/*   Updated: 2022/09/20 21:45:39 by puttasa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen_mod(const char *str, char c)
+size_t	ft_strlen_mod(char *str, char c)
 {
 	size_t	len;
 
 	len = 0;
-	while (*str != c)
+	if (!*str)
+		return (0);
+	while (*str && *str != c)
 	{
 		str++;
 		len++;
@@ -53,7 +55,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	size_t	relen;
@@ -61,7 +63,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	i = 0;
 	if (!s)
+	{
+		free(s);
 		return (0);
+	}
 	relen = len;
 	if (start > ft_strlen_mod(s, '\0'))
 		relen = 0;
@@ -73,14 +78,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ft_bzero (substr, relen + 1);
 	while (s[start] != '\0' && start < ft_strlen_mod(s, '\0') && i < relen)
 	{
-		substr[i] = s[start];
-		i++;
-		start++;
+		substr[i++] = s[start++];
 	}
 	return (substr);
 }
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strrchr(char *s, int c)
 {
 	int	len;
 
