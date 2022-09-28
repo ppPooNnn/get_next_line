@@ -6,32 +6,32 @@
 /*   By: puttasa <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 20:00:04 by puttasa           #+#    #+#             */
-/*   Updated: 2022/09/28 00:41:39 by puttasa          ###   ########.fr       */
+/*   Updated: 2022/09/28 00:51:33 by puttasa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {
-	static char	*buf;
+	static char	*buf[OPEN_MAX];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
 		return (0);
-	if (!buf)
+	if (!buf[fd])
 	{
-		buf = malloc(1);
-		buf[0] = '\0';
+		buf[fd] = malloc(1);
+		buf[fd][0] = '\0';
 	}
-	buf = ft_readfile(buf, fd);
-	if (!buf)
+	buf[fd] = ft_readfile(buf[fd], fd);
+	if (!buf[fd])
 	{
 		free(buf);
 		return (0);
 	}
-	line = ft_getline(buf);
-	buf = ft_extraline(buf);
+	line = ft_getline(buf[fd]);
+	buf[fd] = ft_extraline(buf[fd]);
 	return (line);
 }
 
