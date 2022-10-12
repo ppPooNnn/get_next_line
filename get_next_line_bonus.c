@@ -27,7 +27,7 @@ char	*get_next_line(int fd)
 	buf[fd] = ft_readfile(buf[fd], fd);
 	if (!buf[fd])
 	{
-		free(buf);
+		free(buf[fd]);
 		return (0);
 	}
 	line = ft_getline(buf[fd]);
